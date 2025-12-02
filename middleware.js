@@ -1,17 +1,11 @@
 export const runtime = "edge";
 
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/edge";
+// Minimal middleware that only adds auth context without protection
+// Protection is handled in individual routes using Clerk's auth()
+import { clerkMiddleware } from "@clerk/nextjs/edge";
 
-const isProtectedRoute = createRouteMatcher([
-  "/dashboard(.*)",
-  "/account(.*)",
-  "/transaction(.*)",
-]);
-
-export default clerkMiddleware((auth, req) => {
-  if (isProtectedRoute(req)) auth().protect();
-});
+export default clerkMiddleware();
 
 export const config = {
-  matcher: ["/(dashboard|account|transaction)(.*)", "/(api|trpc)(.*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|public).*)"],
 };
