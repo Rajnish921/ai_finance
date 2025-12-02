@@ -54,7 +54,7 @@
 
 // middleware.js
 export const runtime = "edge";
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/edge";
 import { NextResponse } from "next/server";
 
 const isProtectedRoute = createRouteMatcher([
