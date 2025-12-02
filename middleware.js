@@ -53,7 +53,7 @@
 // };
 
 // middleware.js
-export const runtime = "nodejs";
+export const runtime = "edge";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
