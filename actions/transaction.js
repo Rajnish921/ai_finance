@@ -230,7 +230,18 @@ export async function getUserTransactions(query = {}) {
 // Scan Receipt
 export async function scanReceipt(file) {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    // Validate API key
+    if (!process.env.GEMINI_API_KEY) {
+      throw new Error("Missing GEMINI_API_KEY environment variable");
+    }
+
+    // Validate file
+    if (!file || !file.type || !file.type.startsWith("image/")) {
+      throw new Error("Invalid file. Please upload an image");
+    }
+
+    // Use gemini-2.5-flash model
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     // Convert File to ArrayBuffer
     const arrayBuffer = await file.arrayBuffer();
@@ -254,7 +265,7 @@ export async function scanReceipt(file) {
         "category": "string"
       }
 
-      If its not a recipt, return an empty object
+      If it's not a receipt, return an empty object {}
     `;
 
     const result = await model.generateContent([
@@ -264,29 +275,56 @@ export async function scanReceipt(file) {
           mimeType: file.type,
         },
       },
-      prompt,
+      { text: prompt },
     ]);
 
     const response = await result.response;
-    const text = response.text();
+    const text = await response.text();
+
+    // Log raw response for debugging
+    console.log("Gemini raw response:", text);
+
     const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
+
+    if (!cleanedText) {
+      throw new Error("Empty response from Gemini");
+    }
 
     try {
       const data = JSON.parse(cleanedText);
+
+      // Return empty object if no data extracted
+      if (!data || Object.keys(data).length === 0) {
+        return {
+          amount: 0,
+          date: new Date(),
+          description: "",
+          category: "other-expense",
+          merchantName: "",
+        };
+      }
+
       return {
-        amount: parseFloat(data.amount),
-        date: new Date(data.date),
-        description: data.description,
-        category: data.category,
-        merchantName: data.merchantName,
+        amount: data.amount ? parseFloat(data.amount) : 0,
+        date: data.date ? new Date(data.date) : new Date(),
+        description: data.description || "",
+        category: data.category || "other-expense",
+        merchantName: data.merchantName || "",
       };
     } catch (parseError) {
-      console.error("Error parsing JSON response:", parseError);
-      throw new Error("Invalid response format from Gemini");
+      console.error(
+        "Error parsing JSON response:",
+        parseError,
+        "Raw text:",
+        cleanedText
+      );
+      throw new Error("Invalid JSON response from Gemini: " + cleanedText);
     }
   } catch (error) {
     console.error("Error scanning receipt:", error);
-    throw new Error("Failed to scan receipt");
+    throw new Error(
+      "Failed to scan receipt: " + (error.message || "unknown error")
+    );
   }
 }
 

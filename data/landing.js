@@ -86,26 +86,49 @@ export const howItWorksData = [
 ];
 
 // Testimonials Data
+// export const testimonialsData = [
+//   {
+//     name: "Sarah Johnson",
+//     role: "Small Business Owner",
+//     image: "https://randomuser.me/api/portraits/women/75.jpg",
+//     quote:
+//       "Welth has transformed how I manage my business finances. The AI insights have helped me identify cost-saving opportunities I never knew existed.",
+//   },
+//   {
+//     name: "Michael Chen",
+//     role: "Freelancer",
+//     image: "https://randomuser.me/api/portraits/men/75.jpg",
+//     quote:
+//       "The receipt scanning feature saves me hours each month. Now I can focus on my work instead of manual data entry and expense tracking.",
+//   },
+//   {
+//     name: "Emily Rodriguez",
+//     role: "Financial Advisor",
+//     image: "https://randomuser.me/api/portraits/women/74.jpg",
+//     quote:
+//       "I recommend Welth to all my clients. The multi-currency support and detailed analytics make it perfect for international investors.",
+//   },
+// ];
 export const testimonialsData = [
   {
-    name: "Sarah Johnson",
-    role: "Small Business Owner",
-    image: "https://randomuser.me/api/portraits/women/75.jpg",
+    name: "Priya Sharma",
+    role: "Small Business Owner, Delhi",
+    image: "https://randomuser.me/api/portraits/women/65.jpg",
     quote:
-      "Welth has transformed how I manage my business finances. The AI insights have helped me identify cost-saving opportunities I never knew existed.",
+      "Welth made GST reconciliation and expense tracking effortless for my store. The bill scanner and vendor insights saved hours every month.",
   },
   {
-    name: "Michael Chen",
-    role: "Freelancer",
-    image: "https://randomuser.me/api/portraits/men/75.jpg",
+    name: "Amit Verma",
+    role: "Freelancer, Bengaluru",
+    image: "https://randomuser.me/api/portraits/men/66.jpg",
     quote:
-      "The receipt scanning feature saves me hours each month. Now I can focus on my work instead of manual data entry and expense tracking.",
+      "Linking my UPI and bank accounts was seamless. The automated categorization and SIP planner helped me save effectively.",
   },
   {
-    name: "Emily Rodriguez",
-    role: "Financial Advisor",
-    image: "https://randomuser.me/api/portraits/women/74.jpg",
+    name: "Rohini Iyer",
+    role: "Financial Advisor, Mumbai",
+    image: "https://randomuser.me/api/portraits/women/64.jpg",
     quote:
-      "I recommend Welth to all my clients. The multi-currency support and detailed analytics make it perfect for international investors.",
+      "I recommend Welth to clients for clear tax-year reports and GST-ready invoice export — very useful during filing season.",
   },
 ];
