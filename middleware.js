@@ -15,10 +15,10 @@ const aj = arcjet({
   rules: [
     // Shield protection for content and security
     shield({
-      mode: "LIVE",
+      mode: "DRY_RUN", // Changed from LIVE to DRY_RUN to allow requests
     }),
     detectBot({
-      mode: "LIVE", // will block requests. Use "DRY_RUN" to log only
+      mode: "DRY_RUN", // Changed from LIVE to DRY_RUN to allow requests
       allow: [
         "CATEGORY:SEARCH_ENGINE", // Google, Bing, etc
         "GO_HTTP", // For Inngest
